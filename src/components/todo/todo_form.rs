@@ -1,4 +1,5 @@
-use yew::{Callback, InputEvent, MouseEvent, Properties, Html, function_component, html, use_state};
+use yew::{Callback, InputEvent, MouseEvent, Properties, Html, function_component, html, use_state, TargetCast};
+use web_sys::HtmlInputElement;
 
 #[derive(Properties, PartialEq)]
 pub struct TodoFormProps {
@@ -7,19 +8,19 @@ pub struct TodoFormProps {
 
 #[function_component(TodoForm)]
 pub fn todo_item(props: &TodoFormProps) -> Html {
-  let title = use_state(|| "".to_string());
+  let input = use_state(|| "".to_string());
 
   let oninput = {
-    let title = title.clone();
+    let input = input.clone();
     Callback::from(move |e: InputEvent| {
-      let value = e.data();
+      let value = e.target_dyn_into::<HtmlInputElement>();
 
       match value {
         Some(value) => {
-          title.set((*title).clone() + &value);
+          input.set(value.value());
         }
         None => {
-          title.set("".to_string());
+          input.set("".to_string());
         }
       }
     })
@@ -27,11 +28,14 @@ pub fn todo_item(props: &TodoFormProps) -> Html {
 
   let onclick = {
     let on_add = props.on_add.clone();
-    let title = title.clone();
+    let input = input.clone();
     Callback::from(move |e: MouseEvent| {
       e.prevent_default();
-      title.set("".to_string());
-      on_add.emit((*title).clone());
+      if input.is_empty() {
+        return
+      }
+      input.set("".to_string());
+      on_add.emit((*input).clone());
     })
   };
 
@@ -39,10 +43,10 @@ pub fn todo_item(props: &TodoFormProps) -> Html {
     <form class="mb-5">
       <div class="mb-3">
         <label for="title" class="form-label">{"タイトル"}</label>
-        <input type="text" value={(*title).clone()} {oninput} class="form-control" id="title" />
+        <input type="text" value={(*input).clone()} {oninput} class="form-control" id="title" />
       </div>
       <div class="mb-3">
-        {&*title}
+        {&*input}
       </div>
       <button type="submit" {onclick} class="btn btn-primary">{"追加"}</button>
     </form>
