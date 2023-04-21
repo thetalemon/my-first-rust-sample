@@ -25,12 +25,22 @@ fn app() -> Html {
     })
   };
 
+  let on_done = {
+    let todo_items = todo_items.clone();
+    Callback::from(move |id: String| {
+      let mut current_todo_items = (*todo_items).clone();
+      let index = current_todo_items.iter().position(|todo| todo.id.to_string() == id).unwrap();
+      current_todo_items.remove(index);  
+      todo_items.set(current_todo_items);
+    })
+  };
+
   html! {
     <>
       <Header />
       <main class="m-2 ">
         <TodoForm {on_add} />
-        <TodoList todo_items={(*todo_items).clone()} />
+        <TodoList todo_items={(*todo_items).clone()} {on_done} />
       </main>
     </>
   }
