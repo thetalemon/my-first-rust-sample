@@ -30,7 +30,9 @@ fn app() -> Html {
     Callback::from(move |id: String| {
       let mut current_todo_items = (*todo_items).clone();
       let index = current_todo_items.iter().position(|todo| todo.id.to_string() == id).unwrap();
-      current_todo_items.remove(index);  
+      current_todo_items[index].completed = true;
+      // リストから削除する場合はこっち↓
+      // current_todo_items.remove(index);
       todo_items.set(current_todo_items);
     })
   };

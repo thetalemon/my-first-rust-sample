@@ -19,9 +19,21 @@ pub fn todo_item(props: &TodoItemProps) -> Html {
     })
   };
   html! {
-    <li class="p-2">
-      {&props.title}
-      <button type="submit" onclick={onclick(props.id)} class="btn btn-sm btn-danger mr-2">{"完了"}</button>
-    </li>
+    {
+      if props.completed {
+        html! {
+          <li class="p-2">
+            <del class="text-muted">{&props.title}</del>
+          </li>
+        }
+      } else {
+        html! {
+          <li class="p-2">
+            {&props.title} 
+            <button type="submit" onclick={onclick(props.id)} class="btn btn-sm btn-danger mr-2">{"完了"}</button>
+          </li>
+        }
+      }
+    }
   }
 }
