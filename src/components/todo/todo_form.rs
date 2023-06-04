@@ -7,7 +7,7 @@ pub struct TodoFormProps {
 }
 
 #[function_component(TodoForm)]
-pub fn todo_item(props: &TodoFormProps) -> Html {
+pub fn todo_form(props: &TodoFormProps) -> Html {
   let input = use_state(|| "".to_string());
 
   let oninput = {

@@ -1,6 +1,5 @@
 use yew::prelude::*;
 mod components;
-use components::header::Header;
 use components::todo::todo_list::TodoList;
 use components::todo::todo_form::TodoForm;
 use crate::components::todo::types::Todo;
@@ -38,7 +37,11 @@ fn app() -> Html {
 
   html! {
     <>
-      <Header />
+      <header class="p-2 color-bg-accent">
+        <div>
+          <a  href="#">{"Yew TODO App"}</a>
+        </div>
+      </header>
       <main class="m-2 ">
         <TodoForm {on_add} />
         <TodoList todo_items={(*todo_items).clone()} {on_done} />
