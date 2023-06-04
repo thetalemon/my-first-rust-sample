@@ -11,8 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - run: rustup target add wasm32-unknown-unknown
+      - run: rustup update
       - run: cargo install trunk
+      - run: rustup target add wasm32-unknown-unknown
       - run: trunk build --release
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@1
