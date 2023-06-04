@@ -1,10 +1,9 @@
 use yew::prelude::*;
+mod components;
 use components::header::Header;
 use components::todo::todo_list::TodoList;
 use components::todo::todo_form::TodoForm;
 use crate::components::todo::types::Todo;
-
-mod components;
 
 #[function_component(App)]
 fn app() -> Html {

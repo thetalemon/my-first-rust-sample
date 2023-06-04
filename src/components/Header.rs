@@ -1,4 +1,7 @@
-use yew::{function_component, html, Html};
+use yew::{function_component, html, Html, Properties};
+
+#[derive(Properties, PartialEq)]
+pub struct HeaderProps {}
 
 #[function_component(Header)]
 pub fn header() -> Html {
