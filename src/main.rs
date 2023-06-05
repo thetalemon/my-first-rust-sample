@@ -3,6 +3,7 @@ mod components;
 use components::todo::todo_list::TodoList;
 use components::todo::todo_form::TodoForm;
 use crate::components::todo::types::Todo;
+use crate::components::header::Header;
 
 #[function_component(App)]
 fn app() -> Html {
@@ -37,11 +38,12 @@ fn app() -> Html {
 
   html! {
     <>
-      <header class="p-2 color-bg-accent">
-        <div>
-          <a  href="#">{"Yew TODO App"}</a>
-        </div>
-      </header>
+      <Header/>
+      // <header class="p-2 color-bg-accent">
+      //   <div>
+      //     <a  href="#">{"Yew TODO App"}</a>
+      //   </div>
+      // </header>
       <main class="m-2 ">
         <TodoForm {on_add} />
         <TodoList todo_items={(*todo_items).clone()} {on_done} />
