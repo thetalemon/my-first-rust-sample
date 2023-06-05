@@ -3,7 +3,7 @@ mod components;
 use components::todo::todo_list::TodoList;
 use components::todo::todo_form::TodoForm;
 use crate::components::todo::types::Todo;
-use crate::components::header::Header;
+use crate::components::header_section::Header;
 
 #[function_component(App)]
 fn app() -> Html {
